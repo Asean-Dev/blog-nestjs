@@ -3,3 +3,6 @@ export declare class CreateBlogDto {
     content: string;
     status: string;
 }
+export declare class FindBlogDto {
+    status: string;
+}

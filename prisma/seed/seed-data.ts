@@ -14,23 +14,24 @@ async function main() {
           userName: data.userName,
         },
       });
-      if (!result) {
-        console.log("Success");
+      if (result) {
+        console.log("User Success");
       }
-    }
-  }
-  if (blog === 0) {
-    for (const data of SEED_DATA_BLOG) {
-      const user = await prisma.user.findFirst();
-      const result = await prisma.blog.create({
-        data: {
-          titles: data.titles,
-          content: data.content,
-          userId: user?.id ? user.id : 1,
-        },
-      });
-      if (!result) {
-        console.log("Success");
+
+      if (blog === 0 && result) {
+        for (const data of SEED_DATA_BLOG) {
+          const resultBlog = await prisma.blog.create({
+            data: {
+              titles: data.titles,
+              content: data.content,
+              userId: result.id,
+              status: data.status,
+            },
+          });
+          if (resultBlog) {
+            console.log("Blog Success");
+          }
+        }
       }
     }
   }

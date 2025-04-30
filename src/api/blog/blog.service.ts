@@ -1,9 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/database/prisma.service';
-import { CreateBlogDto } from './dto/create-blog.dto';
-import { UpdateBlogDto } from './dto/update-blog.dto';
-import { JwtPayload, RequestWithUser } from 'src/helpers/jwt/jwt.type';
-import { ResponseSuccess } from 'src/helpers/api-response.dto';
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { PrismaService } from "src/database/prisma.service";
+import { ResponseSuccess } from "src/helpers/api-response.dto";
+import { JwtPayload, RequestWithUser } from "src/helpers/jwt/jwt.type";
+import { CreateBlogDto, FindBlogDto } from "./dto/create-blog.dto";
+import { UpdateBlogDto } from "./dto/update-blog.dto";
 
 @Injectable()
 export class BlogService {
@@ -15,21 +15,24 @@ export class BlogService {
         titles: dto.titles,
         content: dto.content,
         userId: user.id,
+        status: dto.status,
       },
     });
 
     return {
       code: HttpStatus.CREATED,
       success: true,
-      message: 'success',
+      message: "success",
       data: result,
     };
   }
 
-  async findAll(user: JwtPayload) {
+  async findAll(dto: FindBlogDto, user: JwtPayload) {
+    console.log("dto", dto);
     const result = await this.prisma.blog.findMany({
       where: {
         userId: user.id,
+        status: { contains: dto.status },
       },
       select: {
         status: true,
@@ -59,7 +62,7 @@ export class BlogService {
     });
 
     if (!result) {
-      throw new HttpException('blog already exists', HttpStatus.CONFLICT);
+      throw new HttpException("blog already exists", HttpStatus.CONFLICT);
     }
 
     return ResponseSuccess(result);
@@ -81,7 +84,7 @@ export class BlogService {
     });
 
     if (!result) {
-      throw new HttpException('blog already exists', HttpStatus.CONFLICT);
+      throw new HttpException("blog already exists", HttpStatus.CONFLICT);
     }
 
     const updateData = await this.prisma.blog.update({

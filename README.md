@@ -12,7 +12,9 @@
 
 ## 🚀 Getting Started
 
-### 1. ติดตั้ง project
+## หลังจาก clone โปรเจ็คเรียบร้อย
+
+### 1. ติดตั้งโปรเจ็ค
 
 ```
 npm install
@@ -24,7 +26,7 @@ npm install
 #supabase
 DATABASE_URL="postgresql://postgres.wivlegpyvkeqqobzvlod:P@ssw0rd@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres"
 #หรือ Local
-#DATABASE_URL="postgresql://[username]:[pass]@localhost:9000?schema=public"
+#DATABASE_URL="postgresql://[your_username]:[your_pass]@localhost:9000?schema=public"
 PORT=3441
 JWT_SECRET=TestKey
 JWT_EXPIRES_IN=1h
@@ -38,7 +40,7 @@ npm run start:dev
 
 ### 4. ถ้าใช้ Local
 
-## 🚀 เปิก comment ใน .env setup postgresql ให้เรียบร้อย เเล้วรันคำสั่งตามนี้
+##### 🚀 เปิด comment local ใน .env setup postgresql ให้เรียบร้อย เเล้วรันคำสั่งตามนี้
 
 ```
 npx prisma generate
@@ -54,5 +56,7 @@ npx prisma db seed
 
 npm run start:dev
 ```
+
+### จะได้รับ Username : testUser มา จะมี Blog เบื่องต้นมาให้ด้วย
 
 ### เริ่มรัน project next.js ได้เลย

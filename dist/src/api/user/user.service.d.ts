@@ -12,19 +12,19 @@ export declare class UserService {
         access_token: string;
     }>>;
     findAll(user: JwtPayload): Promise<ApiResponse<{
+        id: number;
+        uuid: string;
+        userName: string;
+        createdAt: Date;
+        updatedAt: Date;
         blog: {
             id: number;
             uuid: string;
             createdAt: Date;
             titles: string;
             content: string;
-            status: import(".prisma/client").$Enums.BlogStatus;
+            status: string;
         }[];
-        userName: string;
-        id: number;
-        uuid: string;
-        createdAt: Date;
-        updatedAt: Date;
     } | null>>;
     update(id: number, updateUserDto: UpdateUserDto): string;
     remove(id: number): string;

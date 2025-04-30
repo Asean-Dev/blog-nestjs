@@ -5,9 +5,14 @@ const core_1 = require("@nestjs/core");
 const app_module_1 = require("./app.module");
 const all_exception_filter_1 = require("./common/filters/all-exception.filter");
 async function bootstrap() {
-    const logger = new common_1.Logger('NestApplication');
+    const logger = new common_1.Logger("NestApplication");
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.useGlobalFilters(new all_exception_filter_1.AllExceptionsFilter());
+    app.useGlobalPipes(new common_1.ValidationPipe({
+        forbidNonWhitelisted: true,
+        transformOptions: { enableImplicitConversion: true },
+        validationError: { target: false, value: false },
+    }));
     await app.listen(process.env.PORT ?? 3000, () => {
         logger.log(`Started on port ${process.env.PORT}`);
     });

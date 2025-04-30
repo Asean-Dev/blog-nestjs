@@ -8,18 +8,18 @@ export declare class UserController {
         access_token: string;
     }>>;
     findAll(req: RequestWithUser): Promise<import("../../helpers/api-response.dto").ApiResponse<{
+        id: number;
+        uuid: string;
+        userName: string;
+        createdAt: Date;
+        updatedAt: Date;
         blog: {
             id: number;
             uuid: string;
             createdAt: Date;
             titles: string;
             content: string;
-            status: import(".prisma/client").$Enums.BlogStatus;
+            status: string;
         }[];
-        userName: string;
-        id: number;
-        uuid: string;
-        createdAt: Date;
-        updatedAt: Date;
     } | null>>;
 }

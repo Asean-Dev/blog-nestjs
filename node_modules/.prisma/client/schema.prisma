@@ -24,21 +24,15 @@ model user {
   @@index([id, uuid])
 }
 
-enum BlogStatus {
-  DRAFT
-  PUBLISHED
-  ARCHIVED
-}
-
 model blog {
-  id        Int        @id @default(autoincrement())
-  uuid      String     @unique @default(uuid()) @db.Uuid
+  id        Int      @id @default(autoincrement())
+  uuid      String   @unique @default(uuid()) @db.Uuid
   userId    Int
   titles    String
   content   String
-  status    BlogStatus @default(DRAFT)
-  createdAt DateTime   @default(now()) @map("created_at")
-  updatedAt DateTime   @updatedAt @map("updated_at")
+  status    String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   user user @relation(fields: [userId], references: [id])
 

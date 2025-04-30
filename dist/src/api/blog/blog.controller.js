@@ -26,8 +26,8 @@ let BlogController = class BlogController {
     create(createBlogDto, req) {
         return this.blogService.create(createBlogDto, req);
     }
-    findAll(req) {
-        return this.blogService.findAll(req.user);
+    findAll(dto, req) {
+        return this.blogService.findAll(dto, req.user);
     }
     findOne(uuid) {
         return this.blogService.findOne(uuid);
@@ -41,7 +41,7 @@ let BlogController = class BlogController {
 };
 exports.BlogController = BlogController;
 __decorate([
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Request)()),
@@ -50,34 +50,35 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], BlogController.prototype, "create", null);
 __decorate([
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
     (0, common_1.Get)(),
-    __param(0, (0, common_1.Request)()),
+    __param(0, (0, common_1.Query)()),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [create_blog_dto_1.FindBlogDto, Object]),
     __metadata("design:returntype", void 0)
 ], BlogController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
-    (0, common_1.Get)(':uuid'),
-    __param(0, (0, common_1.Param)('uuid')),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
+    (0, common_1.Get)(":uuid"),
+    __param(0, (0, common_1.Param)("uuid")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], BlogController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
-    (0, common_1.Put)(':uuid'),
-    __param(0, (0, common_1.Param)('uuid')),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
+    (0, common_1.Put)(":uuid"),
+    __param(0, (0, common_1.Param)("uuid")),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_blog_dto_1.UpdateBlogDto]),
     __metadata("design:returntype", void 0)
 ], BlogController.prototype, "update", null);
 __decorate([
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
-    (0, common_1.Delete)(':uuid'),
-    __param(0, (0, common_1.Param)('uuid')),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
+    (0, common_1.Delete)(":uuid"),
+    __param(0, (0, common_1.Param)("uuid")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)

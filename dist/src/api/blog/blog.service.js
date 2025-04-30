@@ -25,19 +25,22 @@ let BlogService = class BlogService {
                 titles: dto.titles,
                 content: dto.content,
                 userId: user.id,
+                status: dto.status,
             },
         });
         return {
             code: common_1.HttpStatus.CREATED,
             success: true,
-            message: 'success',
+            message: "success",
             data: result,
         };
     }
-    async findAll(user) {
+    async findAll(dto, user) {
+        console.log("dto", dto);
         const result = await this.prisma.blog.findMany({
             where: {
                 userId: user.id,
+                status: { contains: dto.status },
             },
             select: {
                 status: true,
@@ -64,7 +67,7 @@ let BlogService = class BlogService {
             },
         });
         if (!result) {
-            throw new common_1.HttpException('blog already exists', common_1.HttpStatus.CONFLICT);
+            throw new common_1.HttpException("blog already exists", common_1.HttpStatus.CONFLICT);
         }
         return (0, api_response_dto_1.ResponseSuccess)(result);
     }
@@ -83,7 +86,7 @@ let BlogService = class BlogService {
             },
         });
         if (!result) {
-            throw new common_1.HttpException('blog already exists', common_1.HttpStatus.CONFLICT);
+            throw new common_1.HttpException("blog already exists", common_1.HttpStatus.CONFLICT);
         }
         const updateData = await this.prisma.blog.update({
             where: {

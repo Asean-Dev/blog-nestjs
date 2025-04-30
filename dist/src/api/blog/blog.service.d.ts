@@ -1,8 +1,8 @@
-import { HttpStatus } from '@nestjs/common';
-import { PrismaService } from 'src/database/prisma.service';
-import { CreateBlogDto } from './dto/create-blog.dto';
-import { UpdateBlogDto } from './dto/update-blog.dto';
-import { JwtPayload, RequestWithUser } from 'src/helpers/jwt/jwt.type';
+import { HttpStatus } from "@nestjs/common";
+import { PrismaService } from "src/database/prisma.service";
+import { JwtPayload, RequestWithUser } from "src/helpers/jwt/jwt.type";
+import { CreateBlogDto, FindBlogDto } from "./dto/create-blog.dto";
+import { UpdateBlogDto } from "./dto/update-blog.dto";
 export declare class BlogService {
     private readonly prisma;
     constructor(prisma: PrismaService);
@@ -13,47 +13,47 @@ export declare class BlogService {
         data: {
             id: number;
             uuid: string;
-            createdAt: Date;
-            updatedAt: Date;
             userId: number;
             titles: string;
             content: string;
-            status: import(".prisma/client").$Enums.BlogStatus;
+            status: string;
+            createdAt: Date;
+            updatedAt: Date;
         };
     }>;
-    findAll(user: JwtPayload): Promise<import("src/helpers/api-response.dto").ApiResponse<{
+    findAll(dto: FindBlogDto, user: JwtPayload): Promise<import("src/helpers/api-response.dto").ApiResponse<{
         uuid: string;
-        createdAt: Date;
         titles: string;
         content: string;
-        status: import(".prisma/client").$Enums.BlogStatus;
+        status: string;
+        createdAt: Date;
     }[]>>;
     findOne(uuid: string): Promise<import("src/helpers/api-response.dto").ApiResponse<{
         id: number;
         uuid: string;
-        createdAt: Date;
         titles: string;
         content: string;
-        status: import(".prisma/client").$Enums.BlogStatus;
+        status: string;
+        createdAt: Date;
     }>>;
     update(uuid: string, dto: UpdateBlogDto): Promise<import("src/helpers/api-response.dto").ApiResponse<{
         id: number;
         uuid: string;
-        createdAt: Date;
-        updatedAt: Date;
         userId: number;
         titles: string;
         content: string;
-        status: import(".prisma/client").$Enums.BlogStatus;
+        status: string;
+        createdAt: Date;
+        updatedAt: Date;
     }>>;
     remove(uuid: string): Promise<import("src/helpers/api-response.dto").ApiResponse<{
         id: number;
         uuid: string;
-        createdAt: Date;
-        updatedAt: Date;
         userId: number;
         titles: string;
         content: string;
-        status: import(".prisma/client").$Enums.BlogStatus;
+        status: string;
+        createdAt: Date;
+        updatedAt: Date;
     }>>;
 }
