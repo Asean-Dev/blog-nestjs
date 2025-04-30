@@ -1,0 +1,25 @@
+import { UserService } from './user.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { RequestWithUser } from 'src/helpers/jwt/jwt.type';
+export declare class UserController {
+    private readonly userService;
+    constructor(userService: UserService);
+    create(createUserDto: CreateUserDto): Promise<import("../../helpers/api-response.dto").ApiResponse<{
+        access_token: string;
+    }>>;
+    findAll(req: RequestWithUser): Promise<import("../../helpers/api-response.dto").ApiResponse<{
+        blog: {
+            id: number;
+            uuid: string;
+            createdAt: Date;
+            titles: string;
+            content: string;
+            status: import(".prisma/client").$Enums.BlogStatus;
+        }[];
+        userName: string;
+        id: number;
+        uuid: string;
+        createdAt: Date;
+        updatedAt: Date;
+    } | null>>;
+}
