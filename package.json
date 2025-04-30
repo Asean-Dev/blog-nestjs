@@ -1,12 +1,12 @@
 {
   "name": "api-test",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "npm run prisma:generate && npm run prisma:deploy && npm run prisma:push && nest build",
+    "build": "nest build",
     "prisma:generate": "prisma generate",
     "prisma:push": "prisma db push",
     "prisma:deploy": "prisma migrate deploy",
