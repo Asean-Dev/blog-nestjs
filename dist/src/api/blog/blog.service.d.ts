@@ -1,7 +1,7 @@
 import { HttpStatus } from "@nestjs/common";
 import { PrismaService } from "src/database/prisma.service";
 import { JwtPayload, RequestWithUser } from "src/helpers/jwt/jwt.type";
-import { CreateBlogDto, FindBlogDto } from "./dto/create-blog.dto";
+import { CreateBlogCommentDto, CreateBlogDto, FindBlogDto } from "./dto/create-blog.dto";
 import { UpdateBlogDto } from "./dto/update-blog.dto";
 export declare class BlogService {
     private readonly prisma;
@@ -21,12 +21,36 @@ export declare class BlogService {
             updatedAt: Date;
         };
     }>;
+    createComment(dto: CreateBlogCommentDto, req: RequestWithUser): Promise<{
+        code: HttpStatus;
+        success: boolean;
+        message: string;
+        data: {
+            id: number;
+            uuid: string;
+            userId: number;
+            createdAt: Date;
+            updatedAt: Date;
+            blogId: number;
+            comment: string;
+        };
+    } | {
+        code: HttpStatus;
+        success: boolean;
+        message: string;
+        data: null;
+    }>;
     findAll(dto: FindBlogDto, user: JwtPayload): Promise<import("src/helpers/api-response.dto").ApiResponse<{
+        commentCount: number;
+        id: number;
         uuid: string;
         titles: string;
         content: string;
         status: string;
         createdAt: Date;
+        user: {
+            userName: string;
+        };
     }[]>>;
     findOne(uuid: string): Promise<import("src/helpers/api-response.dto").ApiResponse<{
         id: number;
@@ -35,6 +59,16 @@ export declare class BlogService {
         content: string;
         status: string;
         createdAt: Date;
+        user: {
+            userName: string;
+        };
+        blogComment: {
+            createdAt: Date;
+            user: {
+                userName: string;
+            };
+            comment: string;
+        }[];
     }>>;
     update(uuid: string, dto: UpdateBlogDto): Promise<import("src/helpers/api-response.dto").ApiResponse<{
         id: number;

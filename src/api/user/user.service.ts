@@ -1,17 +1,17 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { PrismaClient } from '@prisma/client';
-import { PrismaService } from 'src/database/prisma.service';
-import { ApiResponse, ResponseSuccess } from 'src/helpers/api-response.dto';
-import { JwtService } from '@nestjs/jwt';
-import { JwtPayload } from 'src/helpers/jwt/jwt.type';
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { CreateUserDto } from "./dto/create-user.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
+import { PrismaClient } from "@prisma/client";
+import { PrismaService } from "src/database/prisma.service";
+import { ApiResponse, ResponseSuccess } from "src/helpers/api-response.dto";
+import { JwtService } from "@nestjs/jwt";
+import { JwtPayload } from "src/helpers/jwt/jwt.type";
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly prisma: PrismaService,
-    private jwtService: JwtService,
+    private jwtService: JwtService
   ) {}
 
   async create(dto: CreateUserDto) {
@@ -31,7 +31,7 @@ export class UserService {
         return new ApiResponse({
           code: HttpStatus.CREATED,
           success: true,
-          message: 'success',
+          message: "Login successful",
           data: { access_token: this.jwtService.sign(payload) },
         });
       }
@@ -49,12 +49,12 @@ export class UserService {
       return new ApiResponse({
         code: HttpStatus.CREATED,
         success: true,
-        message: 'success',
+        message: "Create Account successful",
         data: { access_token: this.jwtService.sign(payload) },
       });
     } catch (error) {
-      console.log('error :', error);
-      throw new HttpException('user already exists', HttpStatus.CONFLICT);
+      console.log("error :", error);
+      throw new HttpException("user already exists", HttpStatus.CONFLICT);
     }
   }
 
@@ -84,11 +84,10 @@ export class UserService {
     return new ApiResponse({
       code: HttpStatus.CREATED,
       success: true,
-      message: 'success',
+      message: "success",
       data: result,
     });
   }
-
 
   update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;

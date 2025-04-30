@@ -37,7 +37,7 @@ let UserService = class UserService {
                 return new api_response_dto_1.ApiResponse({
                     code: common_1.HttpStatus.CREATED,
                     success: true,
-                    message: 'success',
+                    message: "Login successful",
                     data: { access_token: this.jwtService.sign(payload) },
                 });
             }
@@ -54,13 +54,13 @@ let UserService = class UserService {
             return new api_response_dto_1.ApiResponse({
                 code: common_1.HttpStatus.CREATED,
                 success: true,
-                message: 'success',
+                message: "Create Account successful",
                 data: { access_token: this.jwtService.sign(payload) },
             });
         }
         catch (error) {
-            console.log('error :', error);
-            throw new common_1.HttpException('user already exists', common_1.HttpStatus.CONFLICT);
+            console.log("error :", error);
+            throw new common_1.HttpException("user already exists", common_1.HttpStatus.CONFLICT);
         }
     }
     async findAll(user) {
@@ -89,7 +89,7 @@ let UserService = class UserService {
         return new api_response_dto_1.ApiResponse({
             code: common_1.HttpStatus.CREATED,
             success: true,
-            message: 'success',
+            message: "success",
             data: result,
         });
     }

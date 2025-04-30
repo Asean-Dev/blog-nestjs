@@ -35,22 +35,65 @@ let BlogService = class BlogService {
             data: result,
         };
     }
+    async createComment(dto, req) {
+        const user = req.user;
+        const blog = await this.prisma.blog.findUnique({
+            where: {
+                uuid: dto.blogUuid,
+            },
+        });
+        if (blog) {
+            const result = await this.prisma.blogComment.create({
+                data: {
+                    userId: user.id,
+                    blogId: blog?.id,
+                    comment: dto.comment,
+                },
+            });
+            return {
+                code: common_1.HttpStatus.CREATED,
+                success: true,
+                message: "success",
+                data: result,
+            };
+        }
+        return {
+            code: common_1.HttpStatus.BAD_REQUEST,
+            success: false,
+            message: "error",
+            data: null,
+        };
+    }
     async findAll(dto, user) {
         console.log("dto", dto);
         const result = await this.prisma.blog.findMany({
             where: {
-                userId: user.id,
-                status: { contains: dto.status },
+                ...(dto.status && { status: { contains: dto.status } }),
             },
             select: {
+                id: true,
                 status: true,
                 uuid: true,
                 titles: true,
                 content: true,
                 createdAt: true,
+                user: {
+                    select: { userName: true },
+                },
+            },
+            orderBy: {
+                createdAt: "desc",
             },
         });
-        return (0, api_response_dto_1.ResponseSuccess)(result);
+        const newData = await Promise.all(result.map(async (data) => {
+            const countComment = await this.prisma.blogComment.count({
+                where: {
+                    blogId: data.id,
+                },
+            });
+            return { ...data, commentCount: countComment };
+        }));
+        return (0, api_response_dto_1.ResponseSuccess)(newData);
     }
     async findOne(uuid) {
         const result = await this.prisma.blog.findFirst({
@@ -64,6 +107,25 @@ let BlogService = class BlogService {
                 content: true,
                 createdAt: true,
                 status: true,
+                user: {
+                    select: {
+                        userName: true,
+                    },
+                },
+                blogComment: {
+                    orderBy: {
+                        createdAt: "desc",
+                    },
+                    select: {
+                        createdAt: true,
+                        comment: true,
+                        user: {
+                            select: {
+                                userName: true,
+                            },
+                        },
+                    },
+                },
             },
         });
         if (!result) {

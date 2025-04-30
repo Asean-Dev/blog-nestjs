@@ -1,4 +1,4 @@
-import { IsEnum, IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CreateBlogDto {
   @IsString()
@@ -11,7 +11,16 @@ export class CreateBlogDto {
   @IsNotEmpty()
   status: string;
 }
-export class FindBlogDto {
+
+export class CreateBlogCommentDto {
   @IsString()
+  @IsNotEmpty()
+  blogUuid: string;
+  @IsString()
+  @IsNotEmpty()
+  comment: string;
+}
+
+export class FindBlogDto {
   status: string;
 }

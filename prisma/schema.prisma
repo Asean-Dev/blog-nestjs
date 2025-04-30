@@ -14,12 +14,13 @@ datasource db {
 }
 
 model user {
-  id        Int      @id @default(autoincrement())
-  uuid      String   @unique @default(uuid()) @db.Uuid
-  userName  String   @unique @map("user_name")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  blog      blog[]
+  id          Int           @id @default(autoincrement())
+  uuid        String        @unique @default(uuid()) @db.Uuid
+  userName    String        @unique @map("user_name")
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+  blog        blog[]
+  blogComment blogComment[]
 
   @@index([id, uuid])
 }
@@ -34,7 +35,24 @@ model blog {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  user user @relation(fields: [userId], references: [id])
+  user        user          @relation(fields: [userId], references: [id])
+  blogComment blogComment[]
 
   @@index([id, uuid])
+}
+
+model blogComment {
+  id        Int      @id @default(autoincrement())
+  uuid      String   @unique @default(uuid()) @db.Uuid
+  userId    Int
+  blogId    Int
+  comment   String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user user @relation(fields: [userId], references: [id])
+  blog blog @relation(fields: [blogId], references: [id])
+
+  @@index([id, uuid])
+  @@map("blog_comment")
 }

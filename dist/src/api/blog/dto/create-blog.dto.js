@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FindBlogDto = exports.CreateBlogDto = void 0;
+exports.FindBlogDto = exports.CreateBlogCommentDto = exports.CreateBlogDto = void 0;
 const class_validator_1 = require("class-validator");
 class CreateBlogDto {
     titles;
@@ -32,12 +32,23 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateBlogDto.prototype, "status", void 0);
+class CreateBlogCommentDto {
+    blogUuid;
+    comment;
+}
+exports.CreateBlogCommentDto = CreateBlogCommentDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateBlogCommentDto.prototype, "blogUuid", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateBlogCommentDto.prototype, "comment", void 0);
 class FindBlogDto {
     status;
 }
 exports.FindBlogDto = FindBlogDto;
-__decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], FindBlogDto.prototype, "status", void 0);
 //# sourceMappingURL=create-blog.dto.js.map

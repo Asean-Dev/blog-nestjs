@@ -14,6 +14,7 @@ async function bootstrap() {
       validationError: { target: false, value: false },
     })
   );
+  app.enableCors();
   await app.listen(process.env.PORT ?? 3000, () => {
     logger.log(`Started on port ${process.env.PORT}`);
   });

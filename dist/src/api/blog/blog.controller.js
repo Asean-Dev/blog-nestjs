@@ -14,10 +14,10 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BlogController = void 0;
 const common_1 = require("@nestjs/common");
+const passport_1 = require("@nestjs/passport");
 const blog_service_1 = require("./blog.service");
 const create_blog_dto_1 = require("./dto/create-blog.dto");
 const update_blog_dto_1 = require("./dto/update-blog.dto");
-const passport_1 = require("@nestjs/passport");
 let BlogController = class BlogController {
     blogService;
     constructor(blogService) {
@@ -25,6 +25,9 @@ let BlogController = class BlogController {
     }
     create(createBlogDto, req) {
         return this.blogService.create(createBlogDto, req);
+    }
+    createComment(createBlogDto, req) {
+        return this.blogService.createComment(createBlogDto, req);
     }
     findAll(dto, req) {
         return this.blogService.findAll(dto, req.user);
@@ -49,6 +52,15 @@ __decorate([
     __metadata("design:paramtypes", [create_blog_dto_1.CreateBlogDto, Object]),
     __metadata("design:returntype", void 0)
 ], BlogController.prototype, "create", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
+    (0, common_1.Post)("/create-comment"),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_blog_dto_1.CreateBlogCommentDto, Object]),
+    __metadata("design:returntype", void 0)
+], BlogController.prototype, "createComment", null);
 __decorate([
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
     (0, common_1.Get)(),

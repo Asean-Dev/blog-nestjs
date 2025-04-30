@@ -1,31 +1,26 @@
 import {
+  Body,
   Controller,
   Get,
   Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  UseGuards,
   Request,
-  Put,
-} from '@nestjs/common';
-import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { AuthGuard } from '@nestjs/passport';
-import { RequestWithUser } from 'src/helpers/jwt/jwt.type';
+  UseGuards,
+} from "@nestjs/common";
+import { AuthGuard } from "@nestjs/passport";
+import { RequestWithUser } from "src/helpers/jwt/jwt.type";
+import { CreateUserDto } from "./dto/create-user.dto";
+import { UserService } from "./user.service";
 
 @Controller()
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post('sign-in')
+  @Post("sign-in")
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
-  @UseGuards(AuthGuard('jwt'))
-  @Get('me')
+  @UseGuards(AuthGuard("jwt"))
+  @Get("me")
   findAll(@Request() req: RequestWithUser) {
     return this.userService.findAll(req.user);
   }
