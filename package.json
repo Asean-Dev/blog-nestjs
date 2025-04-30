@@ -1,12 +1,15 @@
 {
   "name": "api-test",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "nest build",
+    "build": "npm run prisma:generate && npm run prisma:deploy && npm run prisma:push && nest build",
+    "prisma:generate": "prisma generate",
+    "prisma:push": "prisma db push",
+    "prisma:deploy": "prisma migrate deploy",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
