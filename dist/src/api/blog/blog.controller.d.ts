@@ -12,12 +12,12 @@ export declare class BlogController {
         data: {
             id: number;
             uuid: string;
+            createdAt: Date;
+            updatedAt: Date;
             userId: number;
             titles: string;
             content: string;
             status: string;
-            createdAt: Date;
-            updatedAt: Date;
         };
     }>;
     createComment(createBlogDto: CreateBlogCommentDto, req: RequestWithUser): Promise<{
@@ -27,11 +27,11 @@ export declare class BlogController {
         data: {
             id: number;
             uuid: string;
-            userId: number;
             createdAt: Date;
             updatedAt: Date;
-            blogId: number;
+            userId: number;
             comment: string;
+            blogId: number;
         };
     } | {
         code: import("@nestjs/common").HttpStatus;
@@ -41,64 +41,64 @@ export declare class BlogController {
     }>;
     findAll(dto: FindBlogDto, req: RequestWithUser): Promise<import("../../helpers/api-response.dto").ApiResponse<{
         commentCount: number;
-        id: number;
-        uuid: string;
-        titles: string;
-        content: string;
-        status: string;
-        createdAt: Date;
         user: {
             userName: string;
         };
+        id: number;
+        uuid: string;
+        createdAt: Date;
+        titles: string;
+        content: string;
+        status: string;
     }[]>>;
     findAllOur(dto: FindBlogDto, req: RequestWithUser): Promise<import("../../helpers/api-response.dto").ApiResponse<{
         commentCount: number;
-        id: number;
-        uuid: string;
-        titles: string;
-        content: string;
-        status: string;
-        createdAt: Date;
         user: {
             userName: string;
         };
+        id: number;
+        uuid: string;
+        createdAt: Date;
+        titles: string;
+        content: string;
+        status: string;
     }[]>>;
     findOne(uuid: string): Promise<import("../../helpers/api-response.dto").ApiResponse<{
-        id: number;
-        uuid: string;
-        titles: string;
-        content: string;
-        status: string;
-        createdAt: Date;
         user: {
             userName: string;
         };
+        id: number;
+        uuid: string;
+        createdAt: Date;
         blogComment: {
-            createdAt: Date;
             user: {
                 userName: string;
             };
+            createdAt: Date;
             comment: string;
         }[];
+        titles: string;
+        content: string;
+        status: string;
     }>>;
     update(uuid: string, dto: UpdateBlogDto): Promise<import("../../helpers/api-response.dto").ApiResponse<{
         id: number;
         uuid: string;
+        createdAt: Date;
+        updatedAt: Date;
         userId: number;
         titles: string;
         content: string;
         status: string;
-        createdAt: Date;
-        updatedAt: Date;
     }>>;
     remove(uuid: string): Promise<import("../../helpers/api-response.dto").ApiResponse<{
         id: number;
         uuid: string;
+        createdAt: Date;
+        updatedAt: Date;
         userId: number;
         titles: string;
         content: string;
         status: string;
-        createdAt: Date;
-        updatedAt: Date;
     }>>;
 }

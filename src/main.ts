@@ -15,10 +15,7 @@ async function bootstrap() {
       validationError: { target: false, value: false },
     })
   );
-  app.enableCors({
-    origin: "https://assignment-test-production.up.railway.app",
-    credentials: true,
-  });
+  app.enableCors();
 
   const port = process.env.PORT || 3000;
   await app.listen(port, "0.0.0.0", () => {
