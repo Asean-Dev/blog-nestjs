@@ -95,6 +95,38 @@ let BlogService = class BlogService {
         }));
         return (0, api_response_dto_1.ResponseSuccess)(newData);
     }
+    async findAllOur(dto, user) {
+        console.log("findAllOur", dto);
+        const result = await this.prisma.blog.findMany({
+            where: {
+                ...(dto.status && { status: { contains: dto.status } }),
+                userId: user.id,
+            },
+            select: {
+                id: true,
+                status: true,
+                uuid: true,
+                titles: true,
+                content: true,
+                createdAt: true,
+                user: {
+                    select: { userName: true },
+                },
+            },
+            orderBy: {
+                createdAt: "desc",
+            },
+        });
+        const newData = await Promise.all(result.map(async (data) => {
+            const countComment = await this.prisma.blogComment.count({
+                where: {
+                    blogId: data.id,
+                },
+            });
+            return { ...data, commentCount: countComment };
+        }));
+        return (0, api_response_dto_1.ResponseSuccess)(newData);
+    }
     async findOne(uuid) {
         const result = await this.prisma.blog.findFirst({
             where: {

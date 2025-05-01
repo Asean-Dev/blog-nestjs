@@ -52,6 +52,18 @@ export declare class BlogService {
             userName: string;
         };
     }[]>>;
+    findAllOur(dto: FindBlogDto, user: JwtPayload): Promise<import("src/helpers/api-response.dto").ApiResponse<{
+        commentCount: number;
+        id: number;
+        uuid: string;
+        titles: string;
+        content: string;
+        status: string;
+        createdAt: Date;
+        user: {
+            userName: string;
+        };
+    }[]>>;
     findOne(uuid: string): Promise<import("src/helpers/api-response.dto").ApiResponse<{
         id: number;
         uuid: string;

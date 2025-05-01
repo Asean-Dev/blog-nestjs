@@ -32,6 +32,9 @@ let BlogController = class BlogController {
     findAll(dto, req) {
         return this.blogService.findAll(dto, req.user);
     }
+    findAllOur(dto, req) {
+        return this.blogService.findAllOur(dto, req.user);
+    }
     findOne(uuid) {
         return this.blogService.findOne(uuid);
     }
@@ -70,6 +73,15 @@ __decorate([
     __metadata("design:paramtypes", [create_blog_dto_1.FindBlogDto, Object]),
     __metadata("design:returntype", void 0)
 ], BlogController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
+    (0, common_1.Get)("our"),
+    __param(0, (0, common_1.Query)()),
+    __param(1, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_blog_dto_1.FindBlogDto, Object]),
+    __metadata("design:returntype", void 0)
+], BlogController.prototype, "findAllOur", null);
 __decorate([
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
     (0, common_1.Get)(":uuid"),

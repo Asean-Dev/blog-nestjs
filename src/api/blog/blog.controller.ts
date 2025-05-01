@@ -8,7 +8,7 @@ import {
   Put,
   Query,
   Request,
-  UseGuards
+  UseGuards,
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { RequestWithUser } from "src/helpers/jwt/jwt.type";
@@ -46,6 +46,12 @@ export class BlogController {
   @Get()
   findAll(@Query() dto: FindBlogDto, @Request() req: RequestWithUser) {
     return this.blogService.findAll(dto, req.user);
+  }
+
+  @UseGuards(AuthGuard("jwt"))
+  @Get("our")
+  findAllOur(@Query() dto: FindBlogDto, @Request() req: RequestWithUser) {
+    return this.blogService.findAllOur(dto, req.user);
   }
 
   @UseGuards(AuthGuard("jwt"))

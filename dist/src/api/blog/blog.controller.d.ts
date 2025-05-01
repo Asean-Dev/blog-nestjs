@@ -51,6 +51,18 @@ export declare class BlogController {
             userName: string;
         };
     }[]>>;
+    findAllOur(dto: FindBlogDto, req: RequestWithUser): Promise<import("../../helpers/api-response.dto").ApiResponse<{
+        commentCount: number;
+        id: number;
+        uuid: string;
+        titles: string;
+        content: string;
+        status: string;
+        createdAt: Date;
+        user: {
+            userName: string;
+        };
+    }[]>>;
     findOne(uuid: string): Promise<import("../../helpers/api-response.dto").ApiResponse<{
         id: number;
         uuid: string;
