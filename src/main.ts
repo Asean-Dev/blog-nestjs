@@ -15,7 +15,11 @@ async function bootstrap() {
       validationError: { target: false, value: false },
     })
   );
-  app.enableCors();
+  app.enableCors({
+    origin: "*", // เปิดทุก origin (ระวังใช้เฉพาะตอน dev)
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true, // ถ้ามี cookie หรือ auth
+  });
 
   const port = process.env.PORT || 3000;
   await app.listen(port, "0.0.0.0", () => {
