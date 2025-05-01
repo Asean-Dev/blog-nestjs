@@ -16,9 +16,8 @@ async function bootstrap() {
     })
   );
   app.enableCors({
-    origin: "*", // เปิดทุก origin (ระวังใช้เฉพาะตอน dev)
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true, // ถ้ามี cookie หรือ auth
+    origin: "https://assignment-test-production.up.railway.app",
+    credentials: true,
   });
 
   const port = process.env.PORT || 3000;
