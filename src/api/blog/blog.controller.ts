@@ -42,10 +42,9 @@ export class BlogController {
     return this.blogService.createComment(createBlogDto, req);
   }
 
-  @UseGuards(AuthGuard("jwt"))
   @Get()
   findAll(@Query() dto: FindBlogDto, @Request() req: RequestWithUser) {
-    return this.blogService.findAll(dto, req.user);
+    return this.blogService.findAll(dto);
   }
 
   @UseGuards(AuthGuard("jwt"))

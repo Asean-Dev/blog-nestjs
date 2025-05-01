@@ -64,7 +64,7 @@ let BlogService = class BlogService {
             data: null,
         };
     }
-    async findAll(dto, user) {
+    async findAll(dto) {
         console.log("dto", dto);
         const result = await this.prisma.blog.findMany({
             where: {
@@ -189,15 +189,24 @@ let BlogService = class BlogService {
             data: {
                 titles: dto.titles,
                 content: dto.content,
+                status: dto.status,
             },
         });
         return (0, api_response_dto_1.ResponseSuccess)(updateData);
     }
     async remove(uuid) {
+        const blog = await this.prisma.blog.findUnique({
+            where: { uuid },
+            select: { id: true },
+        });
+        if (!blog) {
+            throw new Error("Blog not found");
+        }
+        await this.prisma.blogComment.deleteMany({
+            where: { blogId: blog.id },
+        });
         const result = await this.prisma.blog.delete({
-            where: {
-                uuid: uuid,
-            },
+            where: { uuid },
         });
         return (0, api_response_dto_1.ResponseSuccess)(result);
     }

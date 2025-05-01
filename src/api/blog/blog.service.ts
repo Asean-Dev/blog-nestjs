@@ -64,7 +64,7 @@ export class BlogService {
     };
   }
 
-  async findAll(dto: FindBlogDto, user: JwtPayload) {
+  async findAll(dto: FindBlogDto) {
     console.log("dto", dto);
     const result = await this.prisma.blog.findMany({
       where: {
@@ -204,17 +204,29 @@ export class BlogService {
       data: {
         titles: dto.titles,
         content: dto.content,
+        status: dto.status,
       },
     });
     return ResponseSuccess(updateData);
   }
-
   async remove(uuid: string) {
-    const result = await this.prisma.blog.delete({
-      where: {
-        uuid: uuid,
-      },
+    const blog = await this.prisma.blog.findUnique({
+      where: { uuid },
+      select: { id: true },
     });
+
+    if (!blog) {
+      throw new Error("Blog not found");
+    }
+
+    await this.prisma.blogComment.deleteMany({
+      where: { blogId: blog.id },
+    });
+
+    const result = await this.prisma.blog.delete({
+      where: { uuid },
+    });
+
     return ResponseSuccess(result);
   }
 }

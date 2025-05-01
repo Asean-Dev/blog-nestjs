@@ -13,12 +13,12 @@ export declare class BlogService {
         data: {
             id: number;
             uuid: string;
-            createdAt: Date;
-            updatedAt: Date;
             userId: number;
             titles: string;
             content: string;
             status: string;
+            createdAt: Date;
+            updatedAt: Date;
         };
     }>;
     createComment(dto: CreateBlogCommentDto, req: RequestWithUser): Promise<{
@@ -28,11 +28,11 @@ export declare class BlogService {
         data: {
             id: number;
             uuid: string;
+            userId: number;
             createdAt: Date;
             updatedAt: Date;
-            userId: number;
-            comment: string;
             blogId: number;
+            comment: string;
         };
     } | {
         code: HttpStatus;
@@ -40,66 +40,66 @@ export declare class BlogService {
         message: string;
         data: null;
     }>;
-    findAll(dto: FindBlogDto, user: JwtPayload): Promise<import("src/helpers/api-response.dto").ApiResponse<{
+    findAll(dto: FindBlogDto): Promise<import("src/helpers/api-response.dto").ApiResponse<{
         commentCount: number;
-        user: {
-            userName: string;
-        };
         id: number;
         uuid: string;
-        createdAt: Date;
         titles: string;
         content: string;
         status: string;
+        createdAt: Date;
+        user: {
+            userName: string;
+        };
     }[]>>;
     findAllOur(dto: FindBlogDto, user: JwtPayload): Promise<import("src/helpers/api-response.dto").ApiResponse<{
         commentCount: number;
-        user: {
-            userName: string;
-        };
         id: number;
         uuid: string;
-        createdAt: Date;
         titles: string;
         content: string;
         status: string;
-    }[]>>;
-    findOne(uuid: string): Promise<import("src/helpers/api-response.dto").ApiResponse<{
+        createdAt: Date;
         user: {
             userName: string;
         };
+    }[]>>;
+    findOne(uuid: string): Promise<import("src/helpers/api-response.dto").ApiResponse<{
         id: number;
         uuid: string;
+        titles: string;
+        content: string;
+        status: string;
         createdAt: Date;
+        user: {
+            userName: string;
+        };
         blogComment: {
+            createdAt: Date;
             user: {
                 userName: string;
             };
-            createdAt: Date;
             comment: string;
         }[];
-        titles: string;
-        content: string;
-        status: string;
     }>>;
     update(uuid: string, dto: UpdateBlogDto): Promise<import("src/helpers/api-response.dto").ApiResponse<{
         id: number;
         uuid: string;
-        createdAt: Date;
-        updatedAt: Date;
         userId: number;
         titles: string;
         content: string;
         status: string;
+        createdAt: Date;
+        updatedAt: Date;
     }>>;
     remove(uuid: string): Promise<import("src/helpers/api-response.dto").ApiResponse<{
         id: number;
         uuid: string;
-        createdAt: Date;
-        updatedAt: Date;
         userId: number;
         titles: string;
         content: string;
         status: string;
+        createdAt: Date;
+        updatedAt: Date;
     }>>;
 }

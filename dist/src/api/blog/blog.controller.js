@@ -30,7 +30,7 @@ let BlogController = class BlogController {
         return this.blogService.createComment(createBlogDto, req);
     }
     findAll(dto, req) {
-        return this.blogService.findAll(dto, req.user);
+        return this.blogService.findAll(dto);
     }
     findAllOur(dto, req) {
         return this.blogService.findAllOur(dto, req.user);
@@ -65,7 +65,6 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], BlogController.prototype, "createComment", null);
 __decorate([
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
     (0, common_1.Get)(),
     __param(0, (0, common_1.Query)()),
     __param(1, (0, common_1.Request)()),
