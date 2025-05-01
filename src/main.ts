@@ -6,6 +6,7 @@ import { AllExceptionsFilter } from "./common/filters/all-exception.filter";
 async function bootstrap() {
   const logger = new Logger("NestApplication");
   const app = await NestFactory.create(AppModule);
+
   app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalPipes(
     new ValidationPipe({
@@ -15,13 +16,10 @@ async function bootstrap() {
     })
   );
   app.enableCors();
-  const port = process.env.PORT || 3441;
-  await app.listen(port, "0.0.0.0", () => {
-    logger.log(`Started on port ${port}`);
-  });
 
-  console.log(
-    `\nApplication is running on: \x1b[32mhttp://localhost:${process.env.PORT}`
-  );
+  const port = process.env.PORT || 3000;
+  await app.listen(port, "0.0.0.0", () => {
+    logger.log(`🚀 Application is running on: http://localhost:${port}`);
+  });
 }
 bootstrap();
